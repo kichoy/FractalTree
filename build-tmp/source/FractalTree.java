@@ -15,33 +15,48 @@ import java.io.IOException;
 public class FractalTree extends PApplet {
 
 private double fractionLength = .8f;
-private int smallestBranch = 5;
-private double branchAngle = .5f;
+private int smallestBranch = 20;
+private double branchAngle = 0.5f;
 
 public void setup()
 {
-	size(640,480);
-	noLoop();
+	size(620, 480);
+	frameRate(8);
 }
 
-public double count = 0.1f;
+public double count1 = 10;
+public double count2 = 0.5f;
+public int branchLength = 100;
 public void draw()
 {
 	background(0);
-	stroke(0, 255, 0);
-	line(320, 480, 320, 380);
-	drawBranches(320, 380, 100, 3*Math.PI/2);
+	stroke(mouseX, 255, mouseY);
+	line(width/2, height, width/2, height-height/4);
+	drawBranches(width/2, height-height/4, branchLength, 3*Math.PI/2);
 
-	//animation
-	if (fractionLength <= 0)
+	//Animation
+	//branch length
+	if (branchLength <= 0)
 	{
-		count = 0.1f;
+		count1 = 10;
 	}
-	if (fractionLength >= 1)
+	if (branchLength >= 100)
 	{
-		count = -0.1f;
+		count1 = -10;
 	}
-	fractionLength += count;
+	branchLength += count1;
+	//branch angle
+	if (branchAngle <= 0)
+	{
+		count2 = 0.1f*Math.random();
+	}
+	if (branchAngle >= 1)
+	{
+		count2 = -0.1f*Math.random();
+	}
+	branchAngle += count2;
+
+
 }
 
 public void drawBranches(int x, int y, double branchLength, double angle)
